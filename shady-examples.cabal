@@ -1,0 +1,39 @@
+Name:                shady-examples
+Version:             0.4.0
+Cabal-Version:       >= 1.2
+Synopsis:            Playing with shady
+Category:            Graphics
+Description:
+  Examples for shady (functional GPU programming)
+
+  .
+  Copyright 2009,2010 by Conal Elliott; GNU AGPLv3 license (see COPYING).
+Author:              Conal Elliott
+Maintainer:          conal@conal.net
+Homepage:            http://haskell.org/haskellwiki/shady
+Package-Url:         http://code.haskell.org/shady
+Copyright:           (c) by Conal Elliott 2009,2010
+License:             OtherLicense
+License-File:        COPYING
+Stability:           experimental
+build-type:          Simple
+
+Executable TestImage
+  hs-source-dirs:       src
+  main-is:              ImageMain.hs
+  other-modules:        ImageExamples
+  build-depends:        base < 5, vector-space
+                      , shady-gen, shady-render, shady-tv
+  ghc-options:         -Wall -O2
+
+Executable TestSurface
+  hs-source-dirs:       src
+  main-is:              SurfaceMain.hs
+  other-modules:        ImageExamples, SurfaceExamples
+  build-depends:        base < 5, vector-space
+                      , shady-gen, shady-render, shady-tv
+  ghc-options:         -Wall -O2
+
+-- -prof -auto-all -caf-all
+
+-- -fhpc
