@@ -10,13 +10,14 @@
 -- Maintainer  :  conal@conal.net
 -- Stability   :  experimental
 -- 
--- Synthesize images
+-- 2D shady examples
 ----------------------------------------------------------------------
 
 module ImageExamples where
 
 import Control.Applicative ((<$>),(<*>), liftA2)
--- import Control.Concurrent (forkIO)
+
+import Control.Compose (result)
 
 import Text.PrettyPrint.Leijen (pretty)
 
@@ -24,16 +25,16 @@ import Data.Boolean
 
 import Data.VectorSpace
 
--- import Text.PrettyPrint.Leijen.DocExpr (HasExpr)
 import Shady.Complex
 import Shady.Misc (Sink,frac)
 import Shady.Language.Exp
 import Shady.Color
--- import Shady.ITransform
 import Shady.Image
--- import Shady.RunImage (ImageB,runImageB,imageBProg)
--- import Shady.Misc (result)
 import Shady.CompileE (GLSL(..))
+import Shady.CompileImage (ImageB,imageBProg)
+
+import Shady.RunImage (runImageB)
+
 
 
 -- -- For GUIs
@@ -189,8 +190,8 @@ samplerIm' = translate2 (d:+d) . scale2 (s :+ (-s)) . samplerIm
    d = -1
    s =  2
 
-samplerIn' :: In (Sampler TwoT)
-samplerIn' = title "texture" samplerIn
+-- samplerIn' :: In (Sampler TwoT)
+-- samplerIn' = title "texture" samplerIn
 
 
 

@@ -3,8 +3,8 @@
 ----------------------------------------------------------------------
 -- |
 -- Module      :  ImageMain
--- Copyright   :  (c) Conal Elliott 2009
--- License     :  GPL-3
+-- Copyright   :  (c) Conal Elliott 2009-2010
+-- License     :  GNU GPLv3
 -- 
 -- Maintainer  :  conal@conal.net
 -- Stability   :  experimental
@@ -14,26 +14,25 @@
 
 module Main where
 
-import Shady.Language.Exp (Pat,R1,R2,FloatE)
-import Shady.Language.GLSL (Program,Definition)
+import Shady.Language.Exp (R1,R2,FloatE)
 import Shady.Color (Color)
 import Shady.Image (Image)
-import Shady.RunImage (imProg,imProg')
+import Shady.CompileE (GLSL)
+import Shady.CompileImage (imageBProg)
 
 import ImageExamples
 
+-- -- debugging
+-- p1' :: (Program, Pat R1, Pat R2)
+-- p1' = imProg' anim
 
 -- debugging
-p1' :: (Program, Pat R1, Pat R2)
-p1' = imProg' anim
-
--- debugging
-p1 :: Definition
-p1 = imProg anim
+p1 :: GLSL R1 R2
+p1 = imageBProg anim
 
 
 main :: IO ()
-main = r anim
+main = run anim
 
 anim :: FloatE -> Image Color
 anim = a8

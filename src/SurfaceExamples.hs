@@ -1,7 +1,8 @@
 {-# LANGUAGE ScopedTypeVariables, TypeOperators, FlexibleContexts
            , TypeFamilies
   #-}
-{-# OPTIONS_GHC -Wall -fno-warn-missing-signatures
+{-# OPTIONS_GHC -Wall
+                -fno-warn-missing-signatures
                 -fno-warn-type-defaults
                 -fno-warn-unused-imports
   #-}
@@ -9,17 +10,19 @@
 -- |
 -- Module      :  SurfaceExamples
 -- Copyright   :  (c) Conal Elliott 2009
--- License     :  GPLv3
+-- License     :  GNU GPLv3
 -- 
 -- Maintainer  :  conal@conal.net
 -- Stability   :  experimental
 -- 
--- Synthesize images
+-- 3D shady examples
 ----------------------------------------------------------------------
 
 module SurfaceExamples where
 
 import Control.Applicative ((<*>),pure,liftA2)
+
+import Control.Compose ((~>),result)
 
 import Data.VectorSpace
 import Data.Derivative (pureD,powVal)
@@ -38,14 +41,16 @@ import Shady.ITransform (ITrans)
 import qualified Shady.Image as I
 import Shady.ParamSurf
 import Shady.Lighting
-import Shady.RunImage (ImageB)
-import Shady.RunSurface
-import Shady.Misc (Unop,Binop,Action,Sink,frac,clamp,(~>),result)
+import Shady.CompileImage (ImageB)
+import Shady.CompileSurface (SurfB,FullSurf,surfBProg)
+import Shady.RunSurface (runSurfB)
+import Shady.Misc (Unop,Binop,Action,Sink,frac,clamp)
 import Shady.MechanicsGL (EyePos)
 
-import ImageExamples (samplerIm',samplerIn')
+import ImageExamples (samplerIm')
 import qualified ImageExamples as TI
 
+{-
 -- For GUIs
 import Control.Applicative ((<$>))
 import Control.Compose (cofmap)
@@ -58,7 +63,11 @@ import Shady.RunUI
 import Graphics.UI.Gtk as Gtk hiding (Color,Action,Image,Point)
 import Graphics.UI.Gtk.OpenGL as GtkGL
 import Graphics.Rendering.OpenGL hiding (Color,rotate,Sink)
-import qualified Graphics.Glew as Glew
+-- import qualified Graphics.Glew as Glew
+
+import ImageExamples (samplerIn')
+
+-}
 
 -- Animated surface
 type SB = T -> SurfD
@@ -298,7 +307,6 @@ qq21c@(q21c,q21c') = qq TI.a21c
 qq22b@(q22b,q22b') = qq TI.a22b
 
 
-
 main = run t1 -- ti
 
 -- or print the program.
@@ -339,6 +347,7 @@ saveAll = do save "t1"   tt1
 
 -- Some faves: t1', t4', tf', t6',ta'
 
+{-
 
 {--------------------------------------------------------------------
     With GUIs
@@ -530,3 +539,5 @@ tq12 = runImUI out $ \ sam dy ->
    out = title "Y up texture test" $
          lambda samplerIn' $
          lambda1 (sliderRIn (-1,1) 0) renderOut
+
+-}

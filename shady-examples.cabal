@@ -21,17 +21,22 @@ build-type:          Simple
 Executable TestImage
   hs-source-dirs:       src
   main-is:              ImageMain.hs
-  other-modules:        ImageExamples
-  build-depends:        base < 5, vector-space
-                      , shady-gen, shady-render, shady-tv
+  other-modules:        
+                        ImageExamples
+  build-depends:        base < 5, TypeCompose, vector-space, wl-pprint, Boolean
+                      , shady-gen, shady-render
+                      -- , shady-tv
   ghc-options:         -Wall -O2
 
 Executable TestSurface
   hs-source-dirs:       src
   main-is:              SurfaceMain.hs
-  other-modules:        ImageExamples, SurfaceExamples
-  build-depends:        base < 5, vector-space
-                      , shady-gen, shady-render, shady-tv
+  other-modules:        
+                        ImageExamples
+                        SurfaceExamples
+  build-depends:        base < 5, TypeCompose, vector-space, wl-pprint, Boolean
+                      , shady-gen, shady-render
+                      -- , shady-tv
   ghc-options:         -Wall -O2
 
 -- -prof -auto-all -caf-all
