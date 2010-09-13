@@ -64,11 +64,9 @@ import Graphics.UI.Gtk.OpenGL as GtkGL
 import Graphics.Rendering.OpenGL hiding (Color,rotate,Sink)
 -- import qualified Graphics.Glew as Glew
 
+import RunUtils
 import ImageExamples (samplerIn')
 
-
--- Animated surface
-type SB = T -> SurfD
 
 -- Pretty-print for debugging
 p :: SurfB -> Doc
@@ -103,17 +101,6 @@ ks = gray 0.5                          -- specular
 ksh = 15                               -- specular exponent
 
 
-eyePos :: EyePos
--- eyePos = (1,2,2)
--- eyePos = (0,0,-2.5)
-eyePos = (1,1,2.5)
--- eyePos = (0,-2,0.001)  -- model disappears when eye_z == 0 and up == (0,-1,0)
--- eyePos = (2,0,0)  -- model disappears when eye_z == 0 and up == (0,-1,0)
--- eyePos = (0,0,-2.5)
-
-eyePosE :: R3E
-eyePosE = pureE (V.vec3 ex ey ez) where (ex,ey,ez) = eyePos
-
 -- With a 3D texture
 simple3 :: SurfD -> FullSurf
 simple3 surf = (lighter,view,surf,img)
@@ -147,9 +134,6 @@ a1d t = hfSurf (\ q -> sin (2*t + 7 * magnitude q) / 3)
 
 a1e :: SB
 a1e t = hfSurf (\ q -> sin (2*t + 9 * magnitude q) / (1 + magnitude q)**3)
-
-turning :: SB -> SB
-turning f t = onYZ (rotate (0.5 * t)) . f t
 
 a2 :: SB
 a2 = const sphere1
@@ -345,50 +329,6 @@ saveAll = do save "t1"   tt1
 
 -- Some faves: t1', t4', tf', t6',ta'
 
-{--------------------------------------------------------------------
-    With GUIs
---------------------------------------------------------------------}
-
--- First, just simulate time with a slider
-
--- timeIn :: In T
--- timeIn = (pureD . V.vec1) <$> sliderRIn (0,10) 0
-
--- timeIn :: In T
--- timeIn = (pureD . V.vec1) <$> sliderRIn (0,10) 0
-
-fakeTime :: In Float
-fakeTime = sliderRIn (0,10) 0
-
-
--- animOut1 :: Out (FloatE -> FullSurf)
--- animOut1 = lambda (title "time" timeIn) undefined
-
--- -- type SurfB = T -> FullSurf
-
--- animOut2 :: Out SurfB
--- animOut2 = cofmap (. pureD) animOut1
-
-runUI' :: Compile src obj => Out obj -> src -> Action
-runUI' = runUI (100,100) eyePos
-
--- type FullSurf = (Lighter Color, EyePosE -> View, SurfD, Image Color)
-
-surfIm :: HasColor c => SurfD -> Image c -> FullSurf
-surfIm surf im = (basicStd, view1, surf, toColor . im)
-
-runU :: Sink [SurfB]
-runU [s] = runUI' animOut (s . pureD)
-runU _   = error "runU: only single SurfB"
-
-animOut :: Out (Sink R1)
-animOut = lambda (V.vec1 <$> i) renderOut
- where
-   i = -- clockIn
-       fakeTime
-
-z1 = runU t1
-
 q1 :: T -> T -> SB
 q1 a b t = hfSurf (\ q -> sin (a*t + b * magnitude q) / (1 + magnitude q)**3)
 
@@ -396,14 +336,6 @@ tq1 = runUI' (h "speed" 2 $ h "wiggliness" 10 $ lambda1 clockIn $ renderOut)
          (\ a b -> model' (turning $ q1 (pureD a) (pureD b)) TI.a4)
  where
    h tit x0 = title tit $ lambda1 (sliderRIn (0,20) x0)
-
-lambda1 :: In a -> Out b -> Out (One a -> b)
-lambda1 i = lambda (V.vec1 <$> i)
-
-type SurfB' = FloatE -> FullSurf
-
-model' :: HasColor c => (T -> SurfD) -> ImageB c -> SurfB'
-model' surf im = liftA2 surfIm (surf . pureD) im
 
 -- model' surf im t = surfIm (surf (pureD t)) (im t)
 
@@ -464,9 +396,6 @@ rateO x0 = lambda1 (title "rate" $ rateSliderIn (-10,10) x0)
 
 runImUI :: Compile src obj => Out obj -> src -> Action
 runImUI = runUI (2,2) (0,0,2.01)
-
-flatIm :: HasColor c => Image c -> FullSurf
-flatIm = surfIm xyPlane
 
 tq6 = runImUI out $ (result.result.result) flatIm im
  where

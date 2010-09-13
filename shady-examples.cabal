@@ -1,5 +1,5 @@
 Name:                shady-examples
-Version:             0.4.0
+Version:             0.4.1
 Cabal-Version:       >= 1.2
 Synopsis:            Playing with shady
 Category:            Graphics
@@ -23,7 +23,8 @@ Executable TestImage
   main-is:              ImageMain.hs
   other-modules:        
                         ImageExamples
-  build-depends:        base < 5, TypeCompose, vector-space, wl-pprint, Boolean
+  build-depends:        base < 5, OpenGL, gtk, gtkglext, wl-pprint
+                      , TypeCompose, vector-space, Boolean, GtkTV
                       , shady-gen, shady-render
                       , shady-tv
   ghc-options:         -Wall -O2
@@ -32,6 +33,7 @@ Executable TestSurface
   hs-source-dirs:       src
   main-is:              SurfaceMain.hs
   other-modules:        
+                        RunUtils
                         ImageExamples
                         SurfaceExamples
   build-depends:        base < 5, TypeCompose, vector-space, wl-pprint, Boolean

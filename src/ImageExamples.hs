@@ -28,16 +28,20 @@ import Shady.Misc (Sink,frac)
 import Shady.Language.Exp
 import Shady.Color
 import Shady.Image
+import Shady.ParamSurf (xyPlane)
 import Shady.CompileE (GLSL(..))
 import Shady.CompileImage (ImageB,imageBProg)
 
-import Shady.RunImage (runImageB)
+-- GLUT-based.  Doesn't make window border & buttons on mac os x in ghci.
+-- import Shady.RunImage (runImageB)
 
 -- For GUIs
 import Interface.TV.Gtk
 -- import Data.Lambda
 import Data.Title
 import Shady.RunUI
+
+import RunUtils
 
 -- Testing
 x :: HasColor c => Sink (ImageB c)
@@ -197,7 +201,7 @@ samplerIn' = title "texture" samplerIn
 --------------------------------------------------------------------}
 
 run :: HasColor c => Sink (ImageB c)
-run = runImageB
+run imb = runUI' (lambda1 clockIn renderOut) (model' (turning (const xyPlane)) imb)
 
 saveAll = do saveImVert
              saveIm "a2" a2
