@@ -22,15 +22,18 @@ import Control.Compose (result)
 import Data.Boolean
 
 import Data.VectorSpace
+import Data.Derivative (pureD)
 
 import Shady.Complex
 import Shady.Misc (Sink,frac)
 import Shady.Language.Exp
 import Shady.Color
 import Shady.Image
-import Shady.ParamSurf (xyPlane)
+import Shady.Lighting (view1,intrinsic)
+import Shady.ParamSurf (xyPlane,SurfD,T)
 import Shady.CompileE (GLSL(..))
 import Shady.CompileImage (ImageB,imageBProg)
+import Shady.CompileSurface (FullSurf)
 
 -- GLUT-based.  Doesn't make window border & buttons on mac os x in ghci.
 -- import Shady.RunImage (runImageB)
@@ -201,7 +204,15 @@ samplerIn' = title "texture" samplerIn
 --------------------------------------------------------------------}
 
 run :: HasColor c => Sink (ImageB c)
-run imb = runUI' (lambda1 clockIn renderOut) (model' (turning (const xyPlane)) imb)
+run imb = runUI'' (lambda1 clockIn renderOut) (model'' (const xyPlane) imb)
+ where 
+   runUI'' = runUI (2,2) (0,0,2)
+   
+   model'' :: HasColor c => (T -> SurfD) -> ImageB c -> SurfB'
+   model'' surf im = liftA2 surfIm'' (surf . pureD) im
+   
+   surfIm'' :: HasColor c => SurfD -> Image c -> FullSurf
+   surfIm'' surf im = (intrinsic, view1, surf, toColor . im)
 
 saveAll = do saveImVert
              saveIm "a2" a2
