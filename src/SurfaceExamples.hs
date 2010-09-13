@@ -231,8 +231,8 @@ bumpySphere = displace sphere1 (utile bumpH')
     Run
 --------------------------------------------------------------------}
 
-run :: Sink [SurfB]
-run = runSurfB eyePos
+-- run :: Sink [SurfB]
+-- run = runSurfB eyePos
 
 -- run = runSurfB' (,n,) eyePos where n = 100    -- stange!  over 105 and i lose much of the shape
 
@@ -289,8 +289,6 @@ qq21c@(q21c,q21c') = qq TI.a21c
 qq22b@(q22b,q22b') = qq TI.a22b
 
 
-main = run t1 -- ti
-
 -- or print the program.
 ph :: [SurfB] -> Doc
 ph [s] = p s
@@ -332,7 +330,7 @@ saveAll = do save "t1"   tt1
 q1 :: T -> T -> SB
 q1 a b t = hfSurf (\ q -> sin (a*t + b * magnitude q) / (1 + magnitude q)**3)
 
-tq1 = runUI' (h "speed" 2 $ h "wiggliness" 10 $ lambda1 clockIn $ renderOut)
+tq1 = runUI' (h "rate" 2 $ h "waviness" 10 $ lambda1 clockIn $ renderOut)
          (\ a b -> model' (turning $ q1 (pureD a) (pureD b)) TI.a4)
  where
    h tit x0 = title tit $ lambda1 (sliderRIn (0,20) x0)
@@ -450,19 +448,6 @@ tq10 = runUI' out $ \ w inv t ->
    out = title "Wavy checker inversion"
          waveO 10 $ invertO (1/4) $ rateO 1 $ renderOut
 
-
-tq11 = runImUI out $ \ dx dy ->
-          flatIm (translate2 (dx :+ dy) $ uscale2 (1/2) udisk)
- where
-   out = title "XY up test" $
-         f "x" $ f "y" $ renderOut
-   f tit = title tit $ lambda1 (sliderRIn (-1,1) 0)
-
-tq12 = runImUI out $ \ sam dy ->
-          flatIm (translate2 (0 :+ dy) $ samplerIm' sam)
- where
-   out = title "Y up texture test" $
-         lambda samplerIn' $
-         lambda1 (sliderRIn (-1,1) 0) renderOut
+main = tq10
 
 

@@ -235,3 +235,5 @@ saveAll = do saveImVert
              saveIm "a20c" a20c
              saveIm "a21a" a21a
              saveIm "a22b" a22b
+
+main = run a22b

@@ -14,25 +14,19 @@
 
 module Main where
 
-import Shady.Language.Exp (R1,R2,FloatE)
-import Shady.Color (Color)
-import Shady.Image (Image)
-import Shady.CompileE (GLSL)
-import Shady.CompileImage (imageBProg)
+-- import Shady.Language.Exp (R1,R2,FloatE)
+-- import Shady.Color (Color)
+-- import Shady.Image (Image)
+-- import Shady.CompileE (GLSL)
+-- import Shady.CompileImage (imageBProg)
 
-import ImageExamples
+import qualified ImageExamples as E
 
 -- -- debugging
--- p1' :: (Program, Pat R1, Pat R2)
--- p1' = imProg' anim
-
--- debugging
-p1 :: GLSL R1 R2
-p1 = imageBProg anim
-
+-- p1 :: GLSL R1 R2
+-- p1 = imageBProg E.a22b
 
 main :: IO ()
-main = run anim
+main = E.main
 
-anim :: FloatE -> Image Color
-anim = a8
+
