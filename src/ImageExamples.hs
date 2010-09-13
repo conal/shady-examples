@@ -19,8 +19,6 @@ import Control.Applicative ((<$>),(<*>), liftA2)
 
 import Control.Compose (result)
 
-import Text.PrettyPrint.Leijen (pretty)
-
 import Data.Boolean
 
 import Data.VectorSpace
@@ -35,17 +33,15 @@ import Shady.CompileImage (ImageB,imageBProg)
 
 import Shady.RunImage (runImageB)
 
-
-
--- -- For GUIs
--- import Interface.TV.Gtk
--- -- import Data.Lambda
--- import Data.Title
--- import Shady.RunUI
+-- For GUIs
+import Interface.TV.Gtk
+-- import Data.Lambda
+import Data.Title
+import Shady.RunUI
 
 -- Testing
 x :: HasColor c => Sink (ImageB c)
-x = print . pretty . imageBProg
+x = print . imageBProg
 
 saveShader suffix name =
   writeFile ("../sample-shaders/" ++ name ++ "." ++ suffix)
@@ -190,8 +186,8 @@ samplerIm' = translate2 (d:+d) . scale2 (s :+ (-s)) . samplerIm
    d = -1
    s =  2
 
--- samplerIn' :: In (Sampler TwoT)
--- samplerIn' = title "texture" samplerIn
+samplerIn' :: In (Sampler TwoT)
+samplerIn' = title "texture" samplerIn
 
 
 

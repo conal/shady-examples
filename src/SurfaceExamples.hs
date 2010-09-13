@@ -50,7 +50,6 @@ import Shady.MechanicsGL (EyePos)
 import ImageExamples (samplerIm')
 import qualified ImageExamples as TI
 
-{-
 -- For GUIs
 import Control.Applicative ((<$>))
 import Control.Compose (cofmap)
@@ -67,7 +66,6 @@ import Graphics.Rendering.OpenGL hiding (Color,rotate,Sink)
 
 import ImageExamples (samplerIn')
 
--}
 
 -- Animated surface
 type SB = T -> SurfD
@@ -347,8 +345,6 @@ saveAll = do save "t1"   tt1
 
 -- Some faves: t1', t4', tf', t6',ta'
 
-{-
-
 {--------------------------------------------------------------------
     With GUIs
 --------------------------------------------------------------------}
@@ -396,10 +392,10 @@ z1 = runU t1
 q1 :: T -> T -> SB
 q1 a b t = hfSurf (\ q -> sin (a*t + b * magnitude q) / (1 + magnitude q)**3)
 
-tq1 = runUI' (h 2 $ h 10 $ lambda1 clockIn $ renderOut)
+tq1 = runUI' (h "speed" 2 $ h "wiggliness" 10 $ lambda1 clockIn $ renderOut)
          (\ a b -> model' (turning $ q1 (pureD a) (pureD b)) TI.a4)
  where
-   h x0 = lambda1 (sliderRIn (0,20) x0)
+   h tit x0 = title tit $ lambda1 (sliderRIn (0,20) x0)
 
 lambda1 :: In a -> Out b -> Out (One a -> b)
 lambda1 i = lambda (V.vec1 <$> i)
@@ -540,4 +536,4 @@ tq12 = runImUI out $ \ sam dy ->
          lambda samplerIn' $
          lambda1 (sliderRIn (-1,1) 0) renderOut
 
--}
+

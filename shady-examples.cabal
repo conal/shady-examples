@@ -25,7 +25,7 @@ Executable TestImage
                         ImageExamples
   build-depends:        base < 5, TypeCompose, vector-space, wl-pprint, Boolean
                       , shady-gen, shady-render
-                      -- , shady-tv
+                      , shady-tv
   ghc-options:         -Wall -O2
 
 Executable TestSurface
