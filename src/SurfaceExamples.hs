@@ -299,7 +299,8 @@ save name ([s],[s']) = do saveSurf  name           s
                           saveSurf (name++"-anim") s'
 save name  _    = error $ "save: " ++ name ++ " only handles one model"
 
-saveSurf name s = TI.saveSh name (surfBProg eyePosE s)
+saveSurf name s = putStrLn name >>
+                  TI.saveSh name (surfBProg eyePosE s)
 
 saveAll = do save "t1"   tt1
              save "t3"   tt3
@@ -449,5 +450,3 @@ tq10 = runUI' out $ \ w inv t ->
          waveO 10 $ invertO (1/4) $ rateO 1 $ renderOut
 
 main = tq10
-
-
