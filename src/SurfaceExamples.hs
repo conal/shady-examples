@@ -53,7 +53,8 @@ import qualified ImageExamples as TI
 -- For GUIs
 import Control.Applicative ((<$>))
 import Control.Compose (cofmap)
-import Interface.TV.Gtk
+import Interface.TV.Gtk hiding (R)
+-- import qualified Interface.TV.Gtk as GTV
 import Data.Lambda
 import Data.Pair
 import Data.Title
@@ -331,9 +332,17 @@ saveAll = do save "t1"   tt1
 q1 :: T -> T -> SB
 q1 a b t = hfSurf (\ q -> sin (a*t + b * magnitude q) / (1 + magnitude q)**3)
 
+-- tq1 = runUI' (h "rate" 2 $ h "waviness" 10 $ lambda1 clockIn $ renderOut) q
+--  where
+--    q :: ER -> ER -> SurfB'
+--    q = \ a b -> model' (turning $ q1 (pureD a) (pureD b)) TI.a4
+--    h :: String -> R -> Out a -> Out (R1 -> a)
+--    h tit x0 = title tit $ lambda1 (sliderRIn (0,20) x0)
+
 tq1 = runUI' (h "rate" 2 $ h "waviness" 10 $ lambda1 clockIn $ renderOut)
          (\ a b -> model' (turning $ q1 (pureD a) (pureD b)) TI.a4)
  where
+   h :: String -> R -> Out a -> Out (R1 -> a)
    h tit x0 = title tit $ lambda1 (sliderRIn (0,20) x0)
 
 -- model' surf im t = surfIm (surf (pureD t)) (im t)
@@ -352,6 +361,7 @@ tq4 = runUI' out $
          lambda samplerIn' $ h "sweep" (3/4) $ h "cross" (1/3) $
          shiftUI $
          lambda1 clockIn $ renderOut
+   h :: String -> R -> Out a -> Out (R1 -> a)
    h str x0 = lambda1 (title (str ++ " radius") $ sliderRIn (0,1) x0)
 
 -- Orbit an image around the origin, at a distance of lim.
