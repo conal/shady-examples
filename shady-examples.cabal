@@ -1,11 +1,10 @@
 Name:                shady-examples
-Version:             0.5.0
+Version:             0.5.1
 Cabal-Version:       >= 1.2
 Synopsis:            Playing with shady
 Category:            Graphics
 Description:
   Examples for shady (functional GPU programming)
-
   .
   Copyright 2009,2010 by Conal Elliott; GNU AGPLv3 license (see COPYING).
 Author:              Conal Elliott
@@ -24,7 +23,8 @@ Executable TestImage
   other-modules:        
                         ImageExamples
   build-depends:        base < 5, OpenGL, gtk, gtkglext, wl-pprint
-                      , TypeCompose, vector-space, Boolean, GtkTV
+                      , TypeCompose, vector-space, type-nat, Boolean
+                      , GtkTV, GtkGLTV
                       , shady-gen, shady-graphics, shady-render, shady-tv
   ghc-options:         -Wall -O2
 

@@ -25,7 +25,7 @@ import Data.VectorSpace
 import Data.Derivative (pureD)
 
 import Shady.Complex
-import Shady.Misc (Sink,frac)
+import Shady.Misc (frac)
 import Shady.Language.Exp
 import Shady.Color
 import Shady.Image
@@ -39,7 +39,7 @@ import Shady.CompileSurface (FullSurf)
 -- import Shady.RunImage (runImageB)
 
 -- For GUIs
-import Interface.TV.Gtk
+import Interface.TV.Gtk.GL
 -- import Data.Lambda
 import Data.Title
 import Shady.RunUI

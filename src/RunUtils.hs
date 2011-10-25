@@ -18,7 +18,8 @@ import Control.Applicative (liftA2)
 
 import Data.Derivative (pureD)
 
-import qualified Shady.Vec as V
+import qualified TypeNat.Vec as V
+
 import Shady.Language.Type ()  -- Pretty Sample instance
 import Shady.Language.Exp
 import Shady.Color
@@ -28,14 +29,13 @@ import Shady.Image hiding (rotate2)
 -- import Shady.CompileImage (ImageB)
 import Shady.CompileSurface (FullSurf) -- SurfB,,surfBProg
 -- import Shady.RunSurface (runSurfB)
-import Shady.Misc (Action,Sink)
 import Shady.MechanicsGL (EyePos)
 import Shady.CompileImage (ImageB)
 
 
 -- For GUIs
 import Control.Applicative ((<$>))
-import Interface.TV.Gtk
+import Interface.TV.Gtk.GL
 import Data.Lambda
 import Shady.RunUI
 
