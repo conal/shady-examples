@@ -23,7 +23,7 @@ Executable TestImage
   other-modules:        
                         ImageExamples
   build-depends:        base < 5, OpenGL, gtk, gtkglext, wl-pprint
-                      , TypeCompose, vector-space, type-nat, Boolean
+                      , TypeCompose, vector-space, type-unary, Boolean
                       , GtkTV, GtkGLTV
                       , shady-gen, shady-graphics, shady-render, shady-tv
   ghc-options:         -Wall -O2

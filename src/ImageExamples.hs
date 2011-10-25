@@ -187,13 +187,13 @@ a22b = (swirl . (* 0.2) . sin) <*> a21b
 
 
 -- Tweak for -1 to 1, and Y inversion.
-samplerIm' :: Sampler TwoT :=> Image Color
+samplerIm' :: Sampler N2 :=> Image Color
 samplerIm' = translate2 (d:+d) . scale2 (s :+ (-s)) . samplerIm
  where
    d = -1
    s =  2
 
-samplerIn' :: In (Sampler TwoT)
+samplerIn' :: In (Sampler N2)
 samplerIn' = title "texture" samplerIn
 
 

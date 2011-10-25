@@ -18,7 +18,7 @@ import Control.Applicative (liftA2)
 
 import Data.Derivative (pureD)
 
-import qualified TypeNat.Vec as V
+import qualified TypeUnary.Vec as V
 
 import Shady.Language.Type ()  -- Pretty Sample instance
 import Shady.Language.Exp
@@ -84,7 +84,7 @@ animOut = lambda (V.vec1 <$> i) renderOut
    i = -- clockIn
        fakeTime
 
-lambda1 :: In a -> Out b -> Out (One a -> b)
+lambda1 :: In a -> Out b -> Out (Vec1 a -> b)
 lambda1 i = lambda (V.vec1 <$> i)
 
 type SurfB' = FloatE -> FullSurf
