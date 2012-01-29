@@ -30,7 +30,7 @@ import Data.Derivative (pureD,powVal)
 import Text.PrettyPrint.Leijen (Doc,pretty)
 
 import Data.Boolean
-import qualified Shady.Vec as V
+-- import qualified TypeUnary.Vec as V
 import Text.PrettyPrint.Leijen.DocExpr (HasExpr)
 import Shady.Complex
 import Shady.Language.Type ()  -- Pretty Sample instance
@@ -52,9 +52,8 @@ import qualified ImageExamples as TI
 
 -- For GUIs
 import Control.Applicative ((<$>))
-import Control.Compose (cofmap)
-import Interface.TV.Gtk hiding (R)
--- import qualified Interface.TV.Gtk as GTV
+import Control.Compose (contraFmap)
+import Interface.TV.Gtk.GL hiding (R,Action)
 import Data.Lambda
 import Data.Pair
 import Data.Title
