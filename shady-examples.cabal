@@ -25,22 +25,25 @@ Executable TestImage
   main-is:              ImageMain.hs
   other-modules:        
                         ImageExamples
-  build-depends:        base < 5, OpenGL, gtk, gtkglext, wl-pprint
+  build-depends:        
+                        base < 5, OpenGL, gtk, gtkglext, wl-pprint
                       , TypeCompose, vector-space, type-unary, Boolean
                       , GtkTV, GtkGLTV
-                      , shady-gen, shady-graphics, shady-render, shady-tv
+                      , shady-gen, shady-graphics >= 0.6.1, shady-render, shady-tv
   ghc-options:         -Wall -O2
 
-Executable TestSurface
-  hs-source-dirs:       src
-  main-is:              SurfaceMain.hs
-  other-modules:        
-                        RunUtils
-                        ImageExamples
-                        SurfaceExamples
-  build-depends:        base < 5, TypeCompose, vector-space, wl-pprint, Boolean
-                      , shady-gen, shady-render, shady-tv
-  ghc-options:         -Wall -O2
+-- Out for now, pending Boolean-related fixes.
+
+-- Executable TestSurface
+--   hs-source-dirs:       src
+--   main-is:              SurfaceMain.hs
+--   other-modules:        
+--                         RunUtils
+--                         ImageExamples
+--                         SurfaceExamples
+--   build-depends:        base < 5, TypeCompose, vector-space, wl-pprint, Boolean
+--                       , shady-gen, shady-render, shady-tv
+--   ghc-options:         -Wall -O2
 
 -- -prof -auto-all -caf-all
 

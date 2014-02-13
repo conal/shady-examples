@@ -1,6 +1,9 @@
-{-# LANGUAGE ScopedTypeVariables, TypeOperators, FlexibleContexts, TypeFamilies #-}
-{-# OPTIONS_GHC -Wall -fno-warn-missing-signatures #-}
+{-# LANGUAGE TypeOperators #-}
+{-# OPTIONS_GHC -Wall #-}
+{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
+
 -- {-# OPTIONS_GHC -fno-warn-unused-imports #-} -- TEMP
+
 ----------------------------------------------------------------------
 -- |
 -- Module      :  ImageExamples
@@ -29,6 +32,7 @@ import Shady.Misc (frac)
 import Shady.Language.Exp
 import Shady.Color
 import Shady.Image
+-- import Shady.ITransform
 import Shady.Lighting (view1,intrinsic)
 import Shady.ParamSurf (xyPlane,SurfD,T)
 import Shady.CompileE (GLSL(..))
@@ -179,6 +183,10 @@ swirl' s = rotate2Im ((2*pi* sin s*) . magnitude)
 
 a22a = (swirl . sin) <*> a21b
 a22b = (swirl . (* 0.2) . sin) <*> a21b
+
+-- -- TODO: Move
+-- instance ITrans (Complex FloatE) BoolE where
+--     (*:) = const id
 
 
 {--------------------------------------------------------------------
